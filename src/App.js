@@ -1,23 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import Store from './components/Store'
+import Checkout from './components/Checkout';
+import { useState } from 'react';
 
 function App() {
+  const [total, setTotal] = useState(0);
+  const [scannedItems, setScannedItems] = useState([])
+  const [scannedPrices, setScannedPrices] = useState([])
+
+  const updateTotal = (newTotal) => {
+    setTotal(newTotal);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id='store-side'>
+        <Store scannedPrices={scannedPrices} setScannedPrices={setScannedPrices} total={total} updateTotal={updateTotal} scannedItems={scannedItems} setScannedItems={setScannedItems}/>
+      </div>
+      <div id='checkout-side'>
+        <Checkout scannedPrices={scannedPrices} total={total} scannedItems={scannedItems}/>
+      </div>
     </div>
   );
 }
